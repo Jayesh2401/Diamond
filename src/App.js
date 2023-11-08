@@ -18,18 +18,13 @@ function App() {
   return (
     
     <div className="list">
-     <Link to='/First'> First</Link>
-     <Link to='/Third'> Third</Link>
-     <Link to='/Fourth'> Fourth</Link>
-     <Link to='/Fifth'> Fifth</Link>
-     <Link to='/Golden'> Golden</Link>
-     <Link to='/Rounded'> Rounded</Link>
-     <Link to='/RubiksCube'> RubiksCube</Link>
-     <Link to='/Cube'> Cube</Link>
-     <Link to='/Curvecube'> Curvecube</Link>
-     <Link to='/Animate'> Animate</Link>
-     <Link to='/ParticleScene'> ParticleScene</Link>
-     <Link to='/Login'> Login</Link>
+     <Link to='/First' target="_blank"> Diamond</Link>
+     <Link to='/Third' target="_blank"> Grass</Link>
+     <Link to='/Fourth' target="_blank"> Solar system light</Link>
+     <Link to='/Golden' target="_blank"> Golden</Link>
+     <Link to='/RubiksCube' target="_blank"> RubiksCube</Link>
+     <Link to='/Animate' target="_blank"> Animate</Link>
+     <Link to='/Login' target="_blank"> Login</Link>
     </div>
   );
 }
