@@ -108,6 +108,7 @@ h2 {
 .remember_forgot a {
   color: #fff;
   text-decoration: none;
+  font-size:18px;
 }
 
 .remember_forgot a:hover {
@@ -137,6 +138,7 @@ button {
 .register_link p a {
   color: #fff;
   text-decoration: none;
+  font-size:18px;
   font-weight: 600;
 }
 
