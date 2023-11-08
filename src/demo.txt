@@ -1,0 +1,138 @@
+// import React from "react";
+// import { Canvas } from "@react-three/fiber";
+// import { OrbitControls } from "@react-three/drei";
+// import * as THREE from "three";
+
+// // Function to create a single cubie with a specified colors on each face
+// function Cubie({ position, colors }) {
+//   const materials = colors.map(color => new THREE.MeshStandardMaterial({ color }));
+
+//   return (
+//     <mesh position={position}>
+//       <boxGeometry args={[1, 1, 1]} />
+//       {materials.map((material, index) => (
+//         <meshStandardMaterial key={index} {...material} />
+//       ))}
+//     </mesh>
+//   );
+// }
+
+// function RubiksCube() {
+//   // Define the colors for each face of the Rubik's Cube
+//   const colors = [
+//     "white", "yellow", "blue", "green", "red", "orange",
+//   ];
+
+//   // Create the cubies and arrange them in a 3x3x3 grid
+//   const cubies = [];
+//   for (let x = -1; x <= 1; x++) {
+//     for (let y = -1; y <= 1; y++) {
+//       for (let z = -1; z <= 1; z++) {
+//         // Skip the center position to leave a hole in the middle of the cube
+//         if (x === 0 && y === 0 && z === 0) continue;
+
+//         // Determine the colors for each face based on the position of the cubie
+//         const faceColors = [
+//           x === -1 ? colors[0] : null, // Left face
+//           x === 1 ? colors[1] : null, // Right face
+//           y === -1 ? colors[2] : null, // Bottom face
+//           y === 1 ? colors[3] : null, // Top face
+//           z === -1 ? colors[4] : null, // Front face
+//           z === 1 ? colors[5] : null, // Back face
+//         ].filter(Boolean);
+
+//         cubies.push(
+//           <Cubie
+//             key={`${x}-${y}-${z}`}
+//             position={[x, y, z]}
+//             colors={faceColors}
+//           />
+//         );
+//       }
+//     }
+//   }
+
+//   return (
+//     <Canvas>
+//       <ambientLight intensity={0.5} />
+//       <pointLight position={[10, 10, 10]} />
+//       {cubies}
+//       <OrbitControls />
+//     </Canvas>
+//   );
+// }
+
+// export default RubiksCube;
+
+import React from "react";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls } from "@react-three/drei";
+import * as THREE from "three";
+
+// Function to create a single cubie with a specified color
+function Cubie({ position, color }) {
+  return (
+    <mesh position={position}>
+      <boxGeometry args={[0.9, 0.9, 0.9]} />
+      <meshStandardMaterial color={color} />
+    </mesh>
+  );
+}
+
+// Function to create the black lines on the sides of the Rubik's Cube
+function Line({ position }) {
+  return (
+    <mesh position={position}>
+      <boxGeometry args={[1, 0.05, 0.05]} />
+      <meshStandardMaterial color="black" />
+    </mesh>
+  );
+}
+
+function RubiksCube() {
+  // Define the colors for each face of the Rubik's Cube
+  const colors = ["white", "yellow", "blue", "green", "red", "orange"];
+
+  // Create the cubies and arrange them in a 3x3x3 grid
+  const cubies = [];
+  for (let x = -1; x <= 1; x++) {
+    for (let y = -1; y <= 1; y++) {
+      for (let z = -1; z <= 1; z++) {
+        // Determine the color for each cubie based on its position
+        let color;
+        if (x === -1) color = colors[0]; // Left face
+        if (x === 1) color = colors[1]; // Right face
+        if (y === -1) color = colors[2]; // Bottom face
+        if (y === 1) color = colors[3]; // Top face
+        if (z === -1) color = colors[4]; // Front face
+        if (z === 1) color = colors[5]; // Back face
+
+        if (color) {
+          cubies.push(
+            <Cubie key={`${x}-${y}-${z}`} position={[x, y, z]} color={color} />
+          );
+        }
+
+        // Add black lines on the sides of the cube
+        if (x === 0 || y === 0 || z === 0) {
+          cubies.push(
+            <Line key={`line-${x}-${y}-${z}`} position={[x, y, z]} />
+          );
+        }
+      }
+    }
+  }
+
+  return (
+    <div style={{ height: "100vh" }}>
+      <Canvas>
+        <ambientLight intensity={0.5} />
+        <pointLight position={[10, 10, 10]} />
+        {cubies}
+        <OrbitControls />
+      </Canvas>
+    </div>
+  );
+}
+
+export default RubiksCube;
